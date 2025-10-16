@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My Introduction</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    min-height: 100vh;
+    margin: 0;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+/* Video Background */
+#video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+}
+
+/* Dark Overlay */
+.video-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: -1;
+}
+
+/* Profile Photo */
+.profile-photo-container {
+    text-align: center;
+    margin: 40px 0 20px 0;
+}
+
+.profile-photo {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 5px solid #FFD700;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.5);
+    object-fit: cover;
+    transition: all 0.4s ease;
+    display: inline-block;
+}
+
+.profile-photo:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 30px rgba(255, 215, 0, 0.8);
+    border-color: #ffffff;
+}
+
+h1 {
+    text-align: center;
+    color: #ffffff;
+    font-size: 3em;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+    margin: 30px 0;
+    padding: 20px;
+    animation: fadeIn 1s ease-in;
+}
+
+.name {
+    text-align: center;
+    font-size: 1.8em;
+    color: #FFD700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+    margin-bottom: 40px;
+    animation: fadeIn 1.2s ease-in 0.3s both;
+}
+
+.name b {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.name b:hover {
+    transform: scale(1.05);
+    text-shadow: 3px 3px 8px rgba(255, 215, 0, 0.8);
+}
+
+h5 {
+    text-align: center;
+    color: #FFD700;
+    font-size: 1.5em;
+    margin: 30px 0 15px 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.paragraph {
+    text-align: center;
+    background: rgba(109, 35, 35, 0.9);
+    padding: 25px 40px;
+    margin: 20px auto;
+    max-width: 800px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    line-height: 1.8;
+    font-size: 1.1em;
+    color: #333;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.paragraph:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+}
+
+.paragraph1 {
+    font-family: "Times New Roman", Times, serif;
+    background: rgba(255, 204, 0, 0.95);
+}
+
+.paragraph2 {
+    font-family: "Baguet Script", cursive;
+    background: rgba(2, 137, 255, 0.95);
+}
+
+.paragraph3 {
+    font-family: "Georgia", serif;
+    background: rgba(76, 175, 80, 0.95);
+}
+
+.paragraph4 {
+    font-family: "Cavolini", serif;
+    background: rgba(230, 14, 86, 0.95);
+}
+
+.paragraph5 {
+    font-family: "Verdana", sans-serif;
+    background: rgba(156, 39, 176, 0.95);
+}
+
+mark {
+    background-color: #FFD700;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    color: #000;
+    box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
+    transition: all 0.3s ease;
+}
+
+mark:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.6);
+}
+
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Scroll to Top Button */
+.scroll-to-top {
+    position: fixed;
+    bottom: 80px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 5px 20px rgba(255, 215, 0, 0.5);
+}
+
+.scroll-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.scroll-to-top:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(255, 215, 0, 0.7);
+}
+
+.scroll-to-top::before {
+    content: "↑";
+    font-size: 24px;
+    color: #000;
+    font-weight: bold;
+}
+
+/* Progress Bar */
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #FFD700, #FFA500, #FFD700);
+    z-index: 10000;
+    transition: width 0.1s ease;
+    box-shadow: 0 2px 10px rgba(255, 215, 0, 0.5);
+}
+
+/* Loading Animation */
+.content-wrapper {
+    animation: fadeInContent 0.8s ease-in;
+}
+
+@keyframes fadeInContent {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Button Container */
+.button-container {
+    text-align: center;
+    margin: 50px auto;
+    max-width: 800px;
+}
+
+.profile-btn {
+    display: inline-block;
+    padding: 15px 35px;
+    margin: 10px;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-decoration: none;
+    color: #ffffff;
+    background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.profile-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);
+    transition: left 0.3s ease;
+    z-index: -1;
+}
+
+.profile-btn:hover::before {
+    left: 0;
+}
+
+.profile-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+}
+
+.profile-btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Different button colors */
+.btn-facebook {
+    background: linear-gradient(45deg, #3b5998 0%, #2d4373 100%);
+    box-shadow: 0 4px 15px rgba(59, 89, 152, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 2em;
+        padding: 10px;
+    }
+    
+    .name {
+        font-size: 1.3em;
+    }
+    
+    .paragraph {
+        padding: 20px;
+        font-size: 1em;
+        max-width: 95%;
+        margin: 15px auto;
+    }
+    
+    h5 {
+        font-size: 1.2em;
+        margin: 20px 0 10px 0;
+    }
+    
+    .profile-btn {
+        display: block;
+        margin: 15px auto;
+        max-width: 250px;
+        font-size: 1em;
+        padding: 12px 25px;
+    }
+    
+    .profile-photo {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .button-container {
+        margin: 30px auto;
+    }
+    
+    .scroll-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5em;
+    }
+    
+    .paragraph {
+        padding: 15px;
+        font-size: 0.9em;
+    }
+    
+    .profile-photo {
+        width: 120px;
+        height: 120px;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const video = document.getElementById('video-background');
+    const audio = document.getElementById('background-music');
+    
+    // Set audio volume to 30%
+    audio.volume = 0.3;
+    
+    // Try to autoplay audio when video plays
+    video.addEventListener('play', function() {
+        audio.play().catch(function(error) {
+            console.log('Audio autoplay prevented by browser. Click anywhere on the page to enable sound.');
+        });
+    });
+    
+    video.addEventListener('pause', function() {
+        audio.pause();
+    });
+    
+    // Sync time if they get out of sync
+    video.addEventListener('timeupdate', function() {
+        const diff = Math.abs(video.currentTime - audio.currentTime);
+        if (diff > 0.3) {
+            audio.currentTime = video.currentTime;
+        }
+    });
+    
+    // Try to autoplay audio immediately
+    setTimeout(function() {
+        audio.play().catch(function(error) {
+            console.log('Audio autoplay blocked. User interaction needed.');
+        });
+    }, 100);
+    
+    // Enable audio on first user interaction anywhere on the page
+    document.body.addEventListener('click', function enableAudio() {
+        if (audio.paused && !video.paused) {
+            audio.play();
+        }
+    }, { once: false });
+    
+    // Scroll to Top Button
+    const scrollBtn = document.getElementById('scroll-to-top');
+    
+    window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+            scrollBtn.classList.add('visible');
+        } else {
+            scrollBtn.classList.remove('visible');
+        }
+        
+        // Update progress bar
+        const progressBar = document.getElementById('progress-bar');
+        const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (window.pageYOffset / windowHeight) * 100;
+        progressBar.style.width = scrolled + '%';
+    });
+    
+    scrollBtn.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+    
+    // Keyboard support for scroll-to-top button
+    scrollBtn.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    });
+    
+    // Add smooth scroll animation to paragraphs on scroll
+    const paragraphs = document.querySelectorAll('.paragraph');
+    
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
+    
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+    
+    paragraphs.forEach(function(paragraph) {
+        paragraph.style.opacity = '0';
+        paragraph.style.transform = 'translateY(30px)';
+        paragraph.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(paragraph);
+    });
+});
+</script>
+
+</head>
+<body>
+
+<!-- Progress Bar -->
+<div id="progress-bar" class="progress-bar"></div>
+
+<!-- Video Background -->
+<video id="video-background" autoplay muted loop playsinline>
+    <source src="[Dusk] Genshin Impact Sunset Title Screen Main Menu BGM OST EXTENDED.mp4" type="video/mp4">
+</video>
+<div class="video-overlay"></div>
+
+<!-- Content Wrapper -->
+<div class="content-wrapper">
+
+<!-- Profile Photo -->
+<div class="profile-photo-container">
+    <img src="jamesimage.jpg" alt="Profile Photo" class="profile-photo">
+</div>
+
+<h1>Welcome to My Web Page</h1>
+<p class="name"><b>James Ferdinand C. Bacalso</b></p>
+
+<h5>Hobby:</h5>
+<p class="paragraph paragraph1">
+I like video games and I spend my free time playing different genres.<br>
+Video games help me develop strategic thinking and problem-solving skills.<br>
+I enjoy playing both single-player adventures and multiplayer competitive games.<br>
+Gaming allows me to connect with friends and meet new people online.<br>
+It's an exciting hobby that keeps me entertained and engaged.
+</p>
+
+<h5>Favorite Quote:</h5>
+<p class="paragraph paragraph2">
+"Creativity takes courage" is my favorite quote that inspires me daily.<br>
+This quote reminds me to be brave in expressing my ideas and thoughts.<br>
+I believe that true creativity requires stepping out of comfort zones.<br>
+It encourages me to try new things without fear of judgment or failure.<br>
+This powerful message motivates me to pursue my passions and dreams.
+</p>
+
+<h5>My Birthday:</h5>
+<p class="paragraph paragraph3">
+My birthday is on <mark>March 9</mark> and I was born in 2010.<br>
+I am currently 15 years old and celebrating another year of life.<br>
+It's a time when I reflect on my growth and accomplishments so far.<br>
+I usually celebrate this special day with my family and close friends.<br>
+This date marks another milestone in my journey through life.
+</p>
+
+<h5>Grade Level:</h5>
+<p class="paragraph paragraph4">
+I study in Grade 9<sup>th</sup> at Cebu Institute of Technology University.<br>
+This grade level is challenging but very exciting for my education and growth.<br>
+I am learning many new subjects that prepare me for my future career.<br>
+My teachers are supportive and help me achieve my academic goals every day.<br>
+I work hard to maintain good grades and participate actively in class activities.
+</p>
+
+<h5>How I Study:</h5>
+<p class="paragraph paragraph5">
+I know how to study effectively and manage my time wisely for academics.<br>
+I create organized study schedules to prepare for exams and complete assignments on time.<br>
+Taking detailed notes and reviewing them regularly helps me understand the lessons better.<br>
+I focus on understanding concepts rather than just memorizing facts and information.<br>
+Studying in a quiet environment and staying disciplined helps me achieve good grades.
+</p>
+
+<!-- Profile Buttons -->
+<div class="button-container">
+    <h5 style="color: #FFD700; margin-bottom: 30px;">🌐 Connect With Me</h5>
+    <a href="https://www.facebook.com/JamesFerdinandBacalso" class="profile-btn btn-facebook" target="_blank">📘 Facebook</a>
+</div>
+
+<!-- Audio Player (Hidden) -->
+<audio id="background-music" autoplay loop style="display: none;">
+    <source src="[Dusk] Genshin Impact Sunset Title Screen Main Menu BGM OST EXTENDED.mp4" type="audio/mp4">
+</audio>
+
+</div>
+<!-- End Content Wrapper -->
+
+<!-- Scroll to Top Button -->
+<div id="scroll-to-top" class="scroll-to-top" role="button" aria-label="Scroll to top" tabindex="0"></div>
+
+</body>
+</html>
+
